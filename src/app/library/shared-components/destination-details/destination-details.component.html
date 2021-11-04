@@ -1,0 +1,187 @@
+<div class="modal-header">
+    <h5 class="modal-title" id="modal-basic-title">{{ destination?.name }}</h5>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  
+  <!-- Body -->
+  <div class="modal-body">
+    <ul ngbNav #nav="ngbNav" class="nav-tabs">
+      <!-- About -->
+      <li ngbNavItem>
+        <a ngbNavLink>About</a>
+        <ng-template ngbNavContent>
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-12">
+                <span>
+                  {{ destination?.details?.about }}
+                </span>
+              </div>
+  
+              <div class="card shadow col-md-12 mt-4">
+                <div class="card-body">
+                  <!-- Price -->
+                  <div class="col-md-12">
+                    <span class="text-info">
+                      Package Cost :-
+                      <span class="text-success"
+                        >{{ destination?.chargesPerPerson | currency: "USD" }} /
+                        person</span
+                      >
+                    </span>
+                  </div>
+  
+                  <!-- Flight Charges -->
+                  <div class="col-md-12 mt-3">
+                    <span class="text-info">
+                      <span
+                        *ngIf="destination?.flightCharges; else noFLightCharges"
+                      >
+                        Flight Charges :-
+                        <span class="text-success"
+                          >{{ destination?.flightCharges | currency: "USD" }} /
+                          person</span
+                        >
+                      </span>
+                      <ng-template #noFLightCharges>
+                        Flight Charges :-
+                        <span class="text-warning">(data not available)</span>
+                      </ng-template>
+                    </span>
+                  </div>
+  
+                  <!-- Duration -->
+                  <div class="col-md-12 mt-3">
+                    <span class="text-info">Tour Duration :-</span>
+                    <span class="text-success">
+                      {{ (destination?.noOfNights || 0) + 1 }} Days
+                      {{ destination?.noOfNights }} Nights
+                    </span>
+                  </div>
+                </div>
+              </div>
+  
+              <!-- Tour Days -->
+              <div class="col-md-12 card shadow mt-3">
+                <div class="card-body">
+                  <!-- first Day -->
+                  <div>
+                    <span class="text-info">First Day</span>
+                    <div>
+                      {{
+                        destination?.details?.itinerary?.dayWiseDetails?.firstDay
+                      }}
+                    </div>
+                  </div>
+  
+                  <!-- middle days -->
+                  <div class="mt-3">
+                    <span class="text-info">Sight Seeings</span>
+                    <div>
+                      <ng-container
+                        *ngFor="
+                          let sight of destination?.details?.itinerary
+                            ?.dayWiseDetails?.restDaysSightSeeing;
+                          let last = last
+                        "
+                      >
+                        <span class="sight">{{ sight }}&nbsp;</span>
+                      </ng-container>
+                    </div>
+                  </div>
+  
+                  <!-- Last Day -->
+                  <div class="mt-3">
+                    <span class="text-info">Last Day</span>
+                    <div>
+                      {{
+                        destination?.details?.itinerary?.dayWiseDetails?.lastDay
+                      }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </li>
+  
+      <!-- Tour Details -->
+      <li ngbNavItem>
+        <a ngbNavLink>Tour Details</a>
+        <ng-template ngbNavContent>
+          <div class="container-fluid">
+            <div class="row">
+              <!-- Package Offerings -->
+              <div class="col-md-6">
+                <h5>Package Inclusions</h5>
+                <div
+                  *ngFor="
+                    let item of destination?.details?.itinerary?.packageInclusions
+                  "
+                >
+                  <i
+                    class="fa fa-check-square-o text-success"
+                    aria-hidden="true"
+                  ></i>
+                  {{ item }}
+                </div>
+              </div>
+              <!-- Tour highlights -->
+              <div class="col-md-6">
+                <h5>Tour Highlights</h5>
+                <div
+                  *ngFor="
+                    let highlight of destination?.details?.itinerary
+                      ?.tourHighlights
+                  "
+                >
+                  <i
+                    class="fa fa-check-square-o text-success"
+                    aria-hidden="true"
+                  ></i>
+                  {{ highlight }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </li>
+  
+      <!-- Booking Calculation -->
+      <li ngbNavItem *ngIf="showBookingForm">
+        <a ngbNavLink>Calculate Charges and Book</a>
+        <ng-template ngbNavContent>
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-12">
+                <app-booking-form
+                 [destination]="destination">
+                </app-booking-form>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </li>
+    </ul>
+    <div [ngbNavOutlet]="nav" class="border border-top-0 p-3"></div>
+  </div>
+  
+  <!-- Footer -->
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-dark"
+      (click)="modal.close('Save click')"
+    >
+      Close
+    </button>
+  </div>
+  

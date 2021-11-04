@@ -1,0 +1,45 @@
+<div class="container-fluid" *ngIf="destination">
+    <div class="row">
+      <!-- Image -->
+      <div class="col-md-4 px-0">
+        <img
+          src="../../../{{ destination.imageUrl }}"
+          alt=""
+          class="img-fluid h-100 w-100 destination-img"
+        />
+      </div>
+
+      <!-- Description -->
+      <div class="col-md-8 p-2">
+        <h5>{{ destination.name }}</h5>
+
+        <!-- Duration -->
+        <div>
+          <span class="badge badge-info p-2">
+            {{ destination.noOfNights + 1 }} Days
+            {{ destination.noOfNights }} Nights
+          </span>
+        </div>
+
+        <!-- Charges -->
+        <div class="mt-2">
+          <strong class="text-success">
+            {{ destination.chargesPerPerson | currency: 'USD' }} /
+            person
+          </strong>
+        </div>
+
+        <!-- About -->
+        <div class="mt-2">
+          <p>
+            {{ destination.details.about }}
+          </p>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="d-flex justify-content-end">
+            <button class="btn btn-primary  mr-3" (click)="showDestinationDetails(destination)">View Details / Book</button>
+        </div>
+      </div>
+    </div>
+  </div>

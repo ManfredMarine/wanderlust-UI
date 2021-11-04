@@ -1,0 +1,56 @@
+<div class="jumbotron">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="offset-md-3 col-md-6">
+          <form action="">
+            <div class="form-group d-flex">
+              <input
+                placeholder="Search"
+                type="text"
+                class="form-control"
+                name="search"
+                [(ngModel)]="searchTerm"
+              />
+              <button class="btn btn-primary" (click)="search()">Search</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="container-fluid p-5">
+    <div class="row" *ngIf="destinations.length; else destinationsPh">
+      <div class="col-12 mb-5" *ngFor="let destination of destinations">
+        <div class="card shadow-lg destination-card">
+          <div class="card-body p-0">
+            <app-destination-card
+              [destination]="destination"
+              (viewDetails)="viewDetails($event)">
+            </app-destination-card>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- placeholder -->
+  
+  <!-- destination placeholder -->
+  <ng-template #destinationsPh>
+    <div class="ph-item" *ngFor="let i of [].constructor(5)">
+      <div class="ph-col-12">
+          <div class="ph-picture"></div>
+          <div class="ph-row">
+              <div class="ph-col-6 big"></div>
+              <div class="ph-col-4 empty big"></div>
+              <div class="ph-col-2 big"></div>
+              <div class="ph-col-4"></div>
+              <div class="ph-col-8 empty"></div>
+              <div class="ph-col-6"></div>
+              <div class="ph-col-6 empty"></div>
+              <div class="ph-col-12"></div>
+          </div>
+      </div>
+    </div>
+  </ng-template>
