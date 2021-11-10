@@ -1,3 +1,4 @@
+import { AuthGuard } from './../shared/guards/auth.guard';
 import { LoginComponent } from './login/login.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { NgModule } from '@angular/core';
@@ -15,7 +16,13 @@ const routes: Routes = [
   },
   {
     path: 'bookings',
-    component: MyBookingsComponent
+    component: MyBookingsComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'home'
   },
   {
     path: '**',

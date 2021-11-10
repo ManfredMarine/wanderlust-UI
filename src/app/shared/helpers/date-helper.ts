@@ -4,8 +4,6 @@ export default class DateHelper {
   static addNoOfDaystoDate(date: any, daysToAdd: number): any {
     date = moment(date);
     const newDate = moment(date).add(daysToAdd, 'days');
-    console.log(newDate);
-    
     return newDate;
   }
 

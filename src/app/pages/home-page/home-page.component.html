@@ -1,56 +1,80 @@
 <div class="jumbotron">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="offset-md-3 col-md-6">
-          <form action="">
-            <div class="form-group d-flex">
-              <input
-                placeholder="Search"
-                type="text"
-                class="form-control"
-                name="search"
-                [(ngModel)]="searchTerm"
-              />
-              <button class="btn btn-primary" (click)="search()">Search</button>
-            </div>
-          </form>
-        </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="offset-md-3 col-md-6">
+        <form action="">
+          <div class="form-group d-flex">
+            <input
+              placeholder="Search"
+              type="text"
+              class="form-control"
+              name="search"
+              [(ngModel)]="searchTerm"
+              (keyup)="resetSearchApplied()"
+            />
+            <button class="btn btn-primary" (click)="search()">Search</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- All Tours button -->
+    <div class="row">
+      <div class="offset-md-3 col-md-6 d-flex justify-content-center">
+        <button class="btn btn-primary" (click)="showAllTours()">All Tours</button>
       </div>
     </div>
   </div>
-  
-  <div class="container-fluid p-5">
-    <div class="row" *ngIf="destinations.length; else destinationsPh">
+</div>
+
+<div class="container-fluid p-5">
+  <div class="row mb-2" *ngIf="searchTerm?.length && searchApplied">
+    <div class="col-12">
+      <h4>Showing tours from {{ searchTerm | titlecase }}</h4>
+    </div>
+  </div>
+  <ng-container *ngIf="destinations; else destinationsPh">
+    <div class="row" *ngIf="destinations.length; else noDestination">
       <div class="col-12 mb-5" *ngFor="let destination of destinations">
         <div class="card shadow-lg destination-card">
           <div class="card-body p-0">
             <app-destination-card
               [destination]="destination"
-              (viewDetails)="viewDetails($event)">
+              (viewDetails)="viewDetails($event)"
+            >
             </app-destination-card>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  
-  <!-- placeholder -->
-  
-  <!-- destination placeholder -->
-  <ng-template #destinationsPh>
-    <div class="ph-item" *ngFor="let i of [].constructor(5)">
-      <div class="ph-col-12">
-          <div class="ph-picture"></div>
-          <div class="ph-row">
-              <div class="ph-col-6 big"></div>
-              <div class="ph-col-4 empty big"></div>
-              <div class="ph-col-2 big"></div>
-              <div class="ph-col-4"></div>
-              <div class="ph-col-8 empty"></div>
-              <div class="ph-col-6"></div>
-              <div class="ph-col-6 empty"></div>
-              <div class="ph-col-12"></div>
-          </div>
+  </ng-container>
+</div>
+
+<!-- placeholder -->
+
+<!-- destination placeholder -->
+<ng-template #destinationsPh>
+  <div class="ph-item" *ngFor="let i of [].constructor(5)">
+    <div class="ph-col-12">
+      <div class="ph-picture"></div>
+      <div class="ph-row">
+        <div class="ph-col-6 big"></div>
+        <div class="ph-col-4 empty big"></div>
+        <div class="ph-col-2 big"></div>
+        <div class="ph-col-4"></div>
+        <div class="ph-col-8 empty"></div>
+        <div class="ph-col-6"></div>
+        <div class="ph-col-6 empty"></div>
+        <div class="ph-col-12"></div>
       </div>
     </div>
-  </ng-template>
+  </div>
+</ng-template>
+
+<ng-template #noDestination>
+  <div class="row">
+    <div class="col-12">
+      <h3 class="text-muted d-flex justify-content-center">No tours found</h3>
+    </div>
+  </div>
+</ng-template>

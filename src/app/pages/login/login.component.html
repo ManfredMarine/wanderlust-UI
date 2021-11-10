@@ -1,160 +1,148 @@
-<div class="login-page">
-    <div class="about-section p-5">
-        <h2 class="text-white">
-            <strong>
-              Wanderlust
-            </strong>
-        </h2>
-        <h3 class="text-white mt-4">
-            <strong>
-              Wherever you go, <br> go with all your heart
-            </strong>
-        </h3>
-    </div>
-    <div class="form-section">
+<div class="container-fluid login-wrapper">
+  <div class="row p-sm-3">
+    <div class="col-md-4 offset-md-4 login-card">
       <ng-container
-        [ngTemplateOutlet]="showLogin ? loginFormTemp : registerFormTemp"
-      >
+        [ngTemplateOutlet]="showLogin ? loginFormTemp : registerFormTemp">
       </ng-container>
     </div>
   </div>
-  
-  <ng-template #loginFormTemp>
-    <div class="ng-container" *ngIf="loginForm">
-      <h4>Login</h4>
-      <form class="mt-5" [formGroup]="loginForm">
-        <div class="form-group">
-          <input
-            formControlName="email"
-            type="email"
-            class="rounded-input form-control"
-            placeholder="email"
-          />
-          <ng-container
-            [ngTemplateOutlet]="errors"
-            [ngTemplateOutletContext]="{ name: 'email', form: loginForm }"
-          >
-          </ng-container>
-        </div>
-  
-        <div class="form-group mt-4">
-          <input
-            formControlName="password"
-            type="password"
-            class="form-control rounded-input"
-            placeholder="password"
-          />
-          <ng-container
-            [ngTemplateOutlet]="errors"
-            [ngTemplateOutletContext]="{ name: 'password', form: loginForm }"
-          >
-          </ng-container>
-        </div>
-  
-        <div class="action-button-section">
-          <button (click)="login()" class="btn btn-success btn-pill btn-block login-button mt-4">
-            <span> Login </span>
-          </button>
-          <small class="btn-link" role="button" (click)="showRegisterForm()">
-            Click here to register
-          </small>
-        </div>
-      </form>
-    </div>
-  </ng-template>
-  
-  <ng-template #registerFormTemp>
-    <ng-container *ngIf="registerForm">
-      <h4>Register</h4>
-      <form class="mt-5" [formGroup]="registerForm">
-        <!-- First Name -->
-        <div class="form-group">
-          <input
-            formControlName="firstName"
-            type="text"
-            class="rounded-input form-control"
-            placeholder="First Name"
-          />
-          <ng-container
-            [ngTemplateOutlet]="errors"
-            [ngTemplateOutletContext]="{ name: 'firstName', form: registerForm }"
-          >
-          </ng-container>
-        </div>
-  
-        <!-- Last Name -->
-        <div class="form-group mt-4">
-          <input
-            formControlName="lastName"
-            type="text"
-            class="rounded-input form-control"
-            placeholder="Last Name"
-          />
-          <ng-container
-            [ngTemplateOutlet]="errors"
-            [ngTemplateOutletContext]="{ name: 'lastName', form: registerForm }"
-          >
-          </ng-container>
-        </div>
-        <div class="form-group mt-4">
-          <input
-            formControlName="email"
-            type="email"
-            class="rounded-input form-control"
-            placeholder="email"
-          />
-          <ng-container
-            [ngTemplateOutlet]="errors"
-            [ngTemplateOutletContext]="{ name: 'email', form: registerForm }"
-          >
-          </ng-container>
-        </div>
-  
-        <div class="form-group mt-4">
-          <input
-            formControlName="password"
-            type="password"
-            class="form-control rounded-input"
-            placeholder="password"
-          />
-          <ng-container
-            [ngTemplateOutlet]="errors"
-            [ngTemplateOutletContext]="{ name: 'password', form: registerForm }"
-          >
-          </ng-container>
-        </div>
-  
-        <div class="action-button-section">
-          <button
-            (click)="register()"
-            class="btn btn-success btn-pill btn-block login-button mt-4"
-          >
-            <span> Register </span>
-          </button>
-          <small class="btn-link" role="button" (click)="showLoginForm()">
-            ALready have account? login
-          </small>
-        </div>
-      </form>
-    </ng-container>
-  </ng-template>
-  
-  <ng-template #errors let-name="name" let-form="form">
-    <ng-container
-      *ngIf="
-        form.controls[name].invalid &&
-        (form.controls[name].touched ||
-          form.controls[name].dirty ||
-          formSubmitted)
-      "
-    >
-      <!-- required -->
-      <div
-        class="invalid-feedback d-block"
-        *ngIf="form.controls[name].hasError('required')"
-      >
-        <span> *required field </span>
+</div>
+
+<ng-template #loginFormTemp>
+  <div *ngIf="loginForm">
+    <h4 class="d-flex justify-content-center mt-3 text-muted">Login</h4>
+    <form class="mt-5" [formGroup]="loginForm">
+      <div class="form-group">
+        <input
+          formControlName="email"
+          type="email"
+          class="rounded-input form-control"
+          placeholder="email"
+        />
+        <ng-container
+          [ngTemplateOutlet]="errors"
+          [ngTemplateOutletContext]="{ name: 'email', form: loginForm }"
+        >
+        </ng-container>
       </div>
-    </ng-container>
-  </ng-template>
-  
+
+      <div class="form-group mt-4">
+        <input
+          formControlName="password"
+          type="password"
+          class="form-control rounded-input"
+          placeholder="password"
+        />
+        <ng-container
+          [ngTemplateOutlet]="errors"
+          [ngTemplateOutletContext]="{ name: 'password', form: loginForm }"
+        >
+        </ng-container>
+      </div>
+
+      <div class="action-button-section">
+        <button (click)="login()" class="btn btn-success btn-pill btn-block login-button mt-4">
+          <span> Login </span>
+        </button>
+        <small class="btn-link my-2" role="button" (click)="showRegisterForm()">
+          Click here to register
+        </small>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #registerFormTemp>
+  <ng-container *ngIf="registerForm">
+    <h4 class="d-flex justify-content-center mt-3 text-muted">Register</h4>
+    <form class="mt-5" [formGroup]="registerForm">
+      <!-- First Name -->
+      <div class="form-group">
+        <input
+          formControlName="firstName"
+          type="text"
+          class="rounded-input form-control"
+          placeholder="First Name"
+        />
+        <ng-container
+          [ngTemplateOutlet]="errors"
+          [ngTemplateOutletContext]="{ name: 'firstName', form: registerForm }"
+        >
+        </ng-container>
+      </div>
+
+      <!-- Last Name -->
+      <div class="form-group mt-4">
+        <input
+          formControlName="lastName"
+          type="text"
+          class="rounded-input form-control"
+          placeholder="Last Name"
+        />
+        <ng-container
+          [ngTemplateOutlet]="errors"
+          [ngTemplateOutletContext]="{ name: 'lastName', form: registerForm }"
+        >
+        </ng-container>
+      </div>
+      <div class="form-group mt-4">
+        <input
+          formControlName="email"
+          type="email"
+          class="rounded-input form-control"
+          placeholder="email"
+        />
+        <ng-container
+          [ngTemplateOutlet]="errors"
+          [ngTemplateOutletContext]="{ name: 'email', form: registerForm }"
+        >
+        </ng-container>
+      </div>
+
+      <div class="form-group mt-4">
+        <input
+          formControlName="password"
+          type="password"
+          class="form-control rounded-input"
+          placeholder="password"
+        />
+        <ng-container
+          [ngTemplateOutlet]="errors"
+          [ngTemplateOutletContext]="{ name: 'password', form: registerForm }"
+        >
+        </ng-container>
+      </div>
+
+      <div class="action-button-section">
+        <button
+          (click)="register()"
+          class="btn btn-success btn-pill btn-block login-button mt-4"
+        >
+          <span> Register </span>
+        </button>
+        <small class="btn-link my-2" role="button" (click)="showLoginForm()">
+          ALready have account? login
+        </small>
+      </div>
+    </form>
+  </ng-container>
+</ng-template>
+
+<ng-template #errors let-name="name" let-form="form">
+  <ng-container
+    *ngIf="
+      form.controls[name].invalid &&
+      (form.controls[name].touched ||
+        form.controls[name].dirty ||
+        formSubmitted)
+    "
+  >
+    <!-- required -->
+    <div
+      class="invalid-feedback d-block"
+      *ngIf="form.controls[name].hasError('required')"
+    >
+      <span> *required field </span>
+    </div>
+  </ng-container>
+</ng-template>

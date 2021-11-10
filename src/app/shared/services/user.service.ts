@@ -17,34 +17,34 @@ export class UserService {
     private autosave: AutosaveService
   ) { }
 
-  async login(credentials: any) {
+  async login(credentials: any): Promise<IUser> {
     const loginUrl = APIUrl.login;
     return await this.apiService.Api(APIMethods.post, loginUrl, null, credentials);
   }
 
-  async register(userData: IUser) {
+  async register(userData: IUser): Promise<IUser> {
     const registerUrl = APIUrl.register;
     return await this.apiService.Api(APIMethods.post, registerUrl, null, userData);
   }
 
-  logout() {
+  logout(): void {
     this.setUserData(null);
   }
 
-  setUserData(userData: IUser | null) {
+  setUserData(userData: IUser | null): void {
     this.userData = userData;
     this.publishUserData(userData);
   }
 
-  publishUserData(userData: IUser | null) {
+  publishUserData(userData: IUser | null): void {
     this.userData$?.next(userData);
   }
 
-  setUserDataInCache(userData: IUser) {
+  setUserDataInCache(userData: IUser): void {
     this.autosave.setUserData(userData);
   }
 
-  async removeUserDataFromCache() {
+  async removeUserDataFromCache(): Promise<void> {
     await this.autosave.removeUserData();
   }
 

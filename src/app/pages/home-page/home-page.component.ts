@@ -13,32 +13,49 @@ import { NgbModal, NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstr
 })
 export class HomePageComponent implements OnInit {
   searchTerm = null;
-  destinations: IDestination[] = [];
+  destinations: IDestination[] = null;
+  searchApplied = false;
   constructor(
     private toastr: ToastrService,
     private destinationService: DestinationService,
     private modal: NgbModal
   ) { }
 
-  async ngOnInit() {
+  async ngOnInit(): Promise<void> {
     setTimeout(async () => {
-      this.destinations = await this.getDestinations();  
-    }, 2000)  
+      this.destinations = await this.getDestinations();
+    }, 2000);
   }
 
   async getDestinations(): Promise<IDestination[]> {
     return await this.destinationService.getDestinations();
   }
 
-  viewDetails(destination: IDestination) {
+  viewDetails(destination: IDestination): void {
     const modalOptions: NgbModalOptions = {
       size: 'xl'
-    }
+    };
     const modalRef: NgbModalRef = this.modal.open(DestinationDetailsComponent, modalOptions);
     modalRef.componentInstance.destination = destination;
   }
 
-  search() {
+  async search(): Promise<void> {
+    this.searchApplied = false;
+    if (this.searchTerm?.length) {
+      this.destinations = null;
+      this.destinations = await this.destinationService.getDestinationByContinent(this.searchTerm);
+      this.searchApplied = true;
+    }
+  }
 
+  resetSearchApplied(): void {
+    this.searchApplied = false;
+  }
+
+  async showAllTours(): Promise<void> {
+    this.destinations = null;
+    this.searchApplied = false;
+    this.searchTerm = '';
+    this.destinations = await this.getDestinations();
   }
 }

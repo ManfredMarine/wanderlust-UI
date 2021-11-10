@@ -25,4 +25,14 @@ export class DestinationService {
       params
     );
   }
+
+  async getDestinationByContinent(searchBy: string): Promise<IDestination[]> {
+    let params = new HttpParams().set('searchBy', searchBy);
+    const searchDestination = APIUrl.searchDestination;
+    return await this.apiService.Api(
+      APIMethods.get,
+      searchDestination,
+      params
+    );
+  }
 }

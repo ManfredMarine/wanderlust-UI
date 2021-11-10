@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { UserService } from './shared/services/user.service';
 import { AutosaveService } from './shared/services/autosave.service';
 import { Component, OnInit } from '@angular/core';
@@ -12,15 +13,15 @@ export class AppComponent implements OnInit {
 
   constructor(
     private autosave: AutosaveService,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) { }
 
-  async ngOnInit() {
-    console.log(123);
-    
+  async ngOnInit(): Promise<void> {
     const userData = await this.autosave.getUserData();
     if (userData) {
       this.userService.setUserData(userData);
+      this.router.navigate(['/home']);
     }
   }
 }
