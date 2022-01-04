@@ -1,9 +1,11 @@
 import { AutosaveService } from './autosave.service';
-import { APIUrl, APIMethods } from './../constants/api-constants';
+import { APIMethods, APIEndpoints } from './../constants/api-constants';
 import { ApiService } from './api.service';
 import { IUser } from './../interfaces/user.interface';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import UrlHelper from '../helpers/url-helper';
 
 @Injectable({
   providedIn: 'root'
@@ -18,12 +20,12 @@ export class UserService {
   ) { }
 
   async login(credentials: any): Promise<IUser> {
-    const loginUrl = APIUrl.login;
+    const loginUrl = UrlHelper.createUrl([environment.baseUrl, APIEndpoints.login]);
     return await this.apiService.Api(APIMethods.post, loginUrl, null, credentials);
   }
 
   async register(userData: IUser): Promise<IUser> {
-    const registerUrl = APIUrl.register;
+    const registerUrl = UrlHelper.createUrl([environment.baseUrl, APIEndpoints.register]);
     return await this.apiService.Api(APIMethods.post, registerUrl, null, userData);
   }
 

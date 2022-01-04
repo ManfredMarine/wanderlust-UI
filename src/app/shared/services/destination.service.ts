@@ -1,8 +1,10 @@
 import { ApiService } from './api.service';
-import { APIUrl, APIMethods } from './../constants/api-constants';
+import { APIMethods, APIEndpoints } from './../constants/api-constants';
 import { Injectable } from '@angular/core';
 import { IDestination } from '../interfaces/destination.interface';
 import { HttpParams } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import UrlHelper from '../helpers/url-helper';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +20,7 @@ export class DestinationService {
     if (destinationId) {
       params = new HttpParams().set('destinationId', destinationId);
     }
-    const destinatonUrl = APIUrl.getDestinations;
+    const destinatonUrl = UrlHelper.createUrl([environment.baseUrl, APIEndpoints.getDestinations]);
     return await this.apiService.Api(
       APIMethods.get,
       destinatonUrl,
@@ -27,8 +29,8 @@ export class DestinationService {
   }
 
   async getDestinationByContinent(searchBy: string): Promise<IDestination[]> {
-    let params = new HttpParams().set('searchBy', searchBy);
-    const searchDestination = APIUrl.searchDestination;
+    const params = new HttpParams().set('searchBy', searchBy);
+    const searchDestination = UrlHelper.createUrl([environment.baseUrl, APIEndpoints.searchDestination]);
     return await this.apiService.Api(
       APIMethods.get,
       searchDestination,
