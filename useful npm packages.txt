@@ -1,0 +1,29 @@
+1) ng bootstrap
+ng add @ng-bootstrap/ng-bootstrap
+
+2)ngx-bootstrap
+ng add ngx-bootstrap OR npm install ngx-bootstrap --save
+
+3) font awesome
+npm i font-awesome
+
+4) jQuery
+npm i jquery
+
+5)localforage
+npm i localforage
+
+6) Placeholder loading
+npm i placeholder-loading
+
+7)@popperjs/core
+npm i @popperjs/core
+
+8) primeng and primeng icons
+npm i primeng
+npm install primeicons
+
+9) ngx-toastr
+npm i ngx-toastr
+@angular/animations package is a required dependency for the default toast
+npm install @angular/animations --save
